@@ -1,0 +1,16 @@
+body {
+  background-color: #FFB643;
+}
+
+.main-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.sash {
+  padding: 10px 25px;
+  background-color: #fff;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+}
+/*# sourceMappingURL=main.css.map */
