@@ -8,6 +8,12 @@ body {
   margin: 0 auto;
 }
 
+.logo {
+  height: 75px;
+  margin: -19px auto;
+  position: absolute;
+}
+
 .sash {
   padding: 10px 25px;
   background-color: #fff;
