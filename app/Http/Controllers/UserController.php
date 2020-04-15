@@ -37,18 +37,22 @@ class UserController extends Controller
         $request->validate(
             [
                 'ip' => 'required',
-                'emp_id' => 'required',
+                'emp_id' => 'required|unique:users',
                 'division' => 'required'
             ]
         );
 
-        $users = User::updateOrcreate(['id' => $request->get('id')],[
-            "ip" => $request->get("ip"),
-            "emp_id" => $request->get("emp_id"),
-            "division" => $request->get("division")
-        ]);
+        if (User::where('division', 1)->count() > 10) {
+            return 'your division has enough members';
+        } else {
+            $users = User::updateOrcreate(['id' => $request->get('id')], [
+                "ip" => $request->get("ip"),
+                "emp_id" => $request->get("emp_id"),
+                "division" => $request->get("division")
+            ]);
 
-        return redirect()->route('answer.create');
+            return redirect()->route('answer.create')->with('user',1);
+        }
     }
 
     /**
@@ -94,5 +98,10 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    static function getDivisionUserCount($division)
+    {
+        return User::where('division', $division)->count();
     }
 }
