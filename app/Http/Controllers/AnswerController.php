@@ -14,7 +14,7 @@ class AnswerController extends Controller
     static $config = [
         'randFirst' => 0,
         'randLast' => 3,
-        'disallowingMinutes' => 1,
+        'disallowingMinutes' => 5,
         'maxLimit' => 2000
     ];
 
@@ -42,7 +42,7 @@ class AnswerController extends Controller
          
         $userId = $request->cookie('userID');
         $division = $request->cookie('division');
-        
+
         if (self::isEligible()){
             if ($request->get('answer') == Common::$randomAnswers[$request->get('q')]) {
 

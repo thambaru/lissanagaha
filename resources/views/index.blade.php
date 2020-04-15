@@ -11,11 +11,16 @@
             <div class="box">Team Sandra</div>
         </div> -->
         @foreach($teams as $key=>$val)
-        <div class="team {{$key%2==0 ? 'right' : ''}}" style="bottom:{{$score[$key]}}px">
+        @if($score[$key] > 0)
+        <?php
+      $climb =   $score[$key] / 250 * 100
+        ?>
+        <div class="team {{$key%2==0 ? 'right' : ''}}" style="bottom:{{$climb}}%">
             <div class="point"></div>
             <div class="arrow"></div>
             <div class="box">{{$teams[$key]}}</div>
         </div>
+        @endif
         @endforeach
     </div> 
 </div>
