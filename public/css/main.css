@@ -54,9 +54,8 @@ body {
 
 .lissanagaha .teams .team .box {
   background: #fff;
-  width: 141px;
   text-align: center;
-  padding: 5px 0;
+  padding: 5px 20px;
   border-radius: 5px;
 }
 

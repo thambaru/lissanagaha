@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', 'LissanagahaController@home');
+Route::get('/api', 'LissanagahaController@api');
+
 
 Route::resource('user', 'UserController');
 Route::resource('answer', 'AnswerController');

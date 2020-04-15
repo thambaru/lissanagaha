@@ -52,7 +52,8 @@ class UserController extends Controller
                 "division" => $request->get("division")
             ]);
 
-            Cookie::queue('userID', $users->id, 60);
+            Cookie::queue('userID', $users->id, 360);
+            Cookie::queue('division', $request->get("division"), 360);
             return redirect()->route('answer.create');
           
             // $response->withCookie(cookie()->forever('userID', '$users->id'));

@@ -41,11 +41,14 @@ class AnswerController extends Controller
         ]);
          
         $userId = $request->cookie('userID');
+        $division = $request->cookie('division');
+        
         if (self::isEligible()){
             if ($request->get('answer') == Common::$randomAnswers[$request->get('q')]) {
 
                 $answers = Answer::updateOrcreate(['id' => $request->get('id')], [
                     'user_id' => $userId,
+                    'division' => $division,
                     'value' => 10,
                 ]);
     
@@ -53,6 +56,7 @@ class AnswerController extends Controller
             } else {
                 $answers = Answer::updateOrcreate(['id' => $request->get('id')], [
                     'user_id' => $userId,
+                    'division' => $division,
                     'value' => -10,
                 ]);
                 return redirect()->back()->with('message','Ayyoo waradi ne itin. pallehata bassa');
