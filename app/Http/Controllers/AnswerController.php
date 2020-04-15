@@ -7,13 +7,14 @@ use App\Filters\Common;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AnswerController extends Controller
 {
     static $config = [
         'randFirst' => 0,
         'randLast' => 3,
-        'disallowingMinutes' => 5,
+        'disallowingMinutes' => 1,
         'maxLimit' => 2000
     ];
 
@@ -38,19 +39,20 @@ class AnswerController extends Controller
         $request->validate([
             'answer' => 'required'
         ]);
-
+         
+        $userId = $request->cookie('userID');
         if (self::isEligible()){
             if ($request->get('answer') == Common::$randomAnswers[$request->get('q')]) {
 
                 $answers = Answer::updateOrcreate(['id' => $request->get('id')], [
-                    'user_id' => 1,
+                    'user_id' => $userId,
                     'value' => 10,
                 ]);
     
                 return redirect()->back()->with('message','Elakiri udata nagga');
             } else {
                 $answers = Answer::updateOrcreate(['id' => $request->get('id')], [
-                    'user_id' => 1,
+                    'user_id' => $userId,
                     'value' => -10,
                 ]);
                 return redirect()->back()->with('message','Ayyoo waradi ne itin. pallehata bassa');
@@ -72,12 +74,14 @@ class AnswerController extends Controller
 
     static function myResult()
     {
-        return Answer::where('user_id', 1)->sum('value');
+        $userId  =  request()->cookie('userID');
+        return Answer::where('user_id', $userId )->sum('value');
     }
 
     static function getLast()
     {
-        return Answer::where('user_id', 1)->orderBy('id', 'desc')->first();
+        $userId  =  request()->cookie('userID');
+        return Answer::where('user_id', $userId )->orderBy('id', 'desc')->first();
     }
 
     static function isExisting()

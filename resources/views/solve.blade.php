@@ -18,21 +18,23 @@
             @endif
 
             @if (Cookie::get('userID') !== null)
-            {{Cookie::get('userID')}}
-            <form action="{{route('answer.store')}}" method="POST">
+            <form action="{{route('answer.store')}}" method="POST" id="answerForm">
                 {{csrf_field()}}
                 <section id="quiz">
                     <h1>Solve this quick</h1>
                     <p class="quiz">{{$question}}</p>
                     <input type="hidden" class="form-control" name="q" value="{{$q}}">
-                    <input type="text" class="form-control" name="answer">
+                    <input type="text" class="form-control" id="answer" name="answer" {{$lg::isEligible()?'':'disabled'}}>
                     <button class="btn btn-lg btn-primary" {{$lg::isEligible()?'':'disabled'}}>Climb Now!</button>
+                    @if($lg::isEligible())
+                    <p>Question will be expires in <span id="q-expire">5</span> seconds</p>
+                    @endif
                 </section>
 
                 @if($lg::isExisting() && !$lg::isEligible())
                 <div class="alert alert-warning my-3">
                     නැවත උත්සාහ කරන්න <span id="time-to-go"></span>
-                    
+
                 </div>
                 @endif
                 @if(isset($message))
@@ -45,11 +47,12 @@
                 <form action="{{route('user.store')}}" method="POST">
                     {{csrf_field()}}
                     <input type="hidden" class="form-control mb-3" name="ip" placeholder="Your Employee ID" value="{{$_SERVER['REMOTE_ADDR']}}">
-                    <input type="text" class="form-control mb-3" name="emp_id" placeholder="Your Employee ID" value="{{old('emp_id')}}">
+                    <input type="text" class="form-control mb-3" name="emp_id" placeholder="Your Employee ID" value="{{old('emp_id')}}" required>
                     <select id="team" class="form-control" name="division">
-                        <option value="1">Group Service Delivery</option>
-                        <option value="2">Group Marketing</option>
-                        <option value="3">Group Business Operation</option>
+                        <option>Select your team...</option>
+                        @foreach(\App\Filters\Common::$divisions as $key=>$val)
+                        <option value="{{$key}}">{{$val}}</option>
+                        @endforeach
                     </select>
                     <button class="btn btn-lg btn-primary">Select</button>
                 </form>
@@ -78,5 +81,22 @@
         });
 </script>
 
+@endif
+
+
+@if($lg::isEligible())
+<script type="text/javascript">
+    var counter = 10;
+    var interval = setInterval(function() {
+        counter--;
+        $("#q-expire").html(counter);
+        if (counter == 0) {
+            // Display a login box
+            $("#answer").val(0);
+            $("#answerForm").submit();
+            clearInterval(interval);
+        }
+    }, 1000);
+</script>
 @endif
 @endsection

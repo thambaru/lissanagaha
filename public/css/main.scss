@@ -42,4 +42,35 @@ body {
         position: absolute;
         left: 0;
     }
+
+    .teams {
+        .team {
+            position: absolute;
+            bottom: 10px;
+            left: 15px;
+
+            .box {
+                background: #fff;
+                width: 141px;
+                text-align: center;
+                padding: 5px 0;
+                border-radius: 5px;
+            }
+            .arrow{
+                width: 50vw;
+                background: #ffffff;
+                height: 3px;
+                position: absolute;
+                top: 16px;
+                z-index: -1;
+            }
+        }
+        .team.right{
+            left: initial;
+            right: 15px;
+            .arrow{
+                right: 0;
+            }
+        }
+    }
 }
