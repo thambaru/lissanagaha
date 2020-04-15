@@ -1,19 +1,47 @@
+$primary-color: #ff300d;
+
 body {
     background-color: #ffb643;
+    font-family: "Poppins";
 }
 .main-container {
     max-width: 800px;
     margin: 0 auto;
 }
 .sash {
-    // position: absolute;
     padding: 10px 25px;
     background-color: #fff;
-    // width: 100%;
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
-    // margin-left: 10px;
-    // margin-right: 10px;
+    position: fixed;
+    width: 85vw;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: 0;
+    h2 {
+        font-weight: 600;
+        text-transform: uppercase;
+        text-align: center;
+        margin: 20px 0;
+    }
+    .btn-primary {
+        margin: 16px auto;
+        display: block;
+        padding: 10px 60px;
+        background-color: $primary-color;
+        border-color: $primary-color;
+        text-transform: uppercase;
+    }
+    .form-control {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    p {
+        font-size: 5rem;
+        font-weight: 300;
+    }
 }
 
 .lissanagaha {
@@ -50,12 +78,12 @@ body {
             left: 15px;
 
             .box {
-                background: #fff; 
+                background: #fff;
                 text-align: center;
                 padding: 5px 20px;
                 border-radius: 5px;
             }
-            .arrow{
+            .arrow {
                 width: 50vw;
                 background: #ffffff;
                 height: 3px;
@@ -64,10 +92,10 @@ body {
                 z-index: -1;
             }
         }
-        .team.right{
+        .team.right {
             left: initial;
             right: 15px;
-            .arrow{
+            .arrow {
                 right: 0;
             }
         }

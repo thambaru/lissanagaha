@@ -1,5 +1,10 @@
 @extends('layouts.main')
 @section('content')
+<div class="lissanagaha">
+    <div class="flag"></div>
+    <div class="pole"></div>
+</div>
+
 <div class="sash">
     <div class="row">
         <div class="col">
@@ -20,8 +25,8 @@
             @if (Cookie::get('userID') !== null)
             <form action="{{route('answer.store')}}" method="POST" id="answerForm">
                 {{csrf_field()}}
-                <section id="quiz">
-                    <h1>Solve this quick</h1>
+                <section id="quiz" class="text-center">
+                    <h2>Solve this quick</h2>
                     <p class="quiz">{{$question}}</p>
                     <input type="hidden" class="form-control" name="q" value="{{$q}}">
                     <input type="text" class="form-control" id="answer" name="answer" {{$lg::isEligible()?'':'disabled'}}>
@@ -43,7 +48,7 @@
             </form>
             @else
             <section id="teamSelect">
-                <h1>Select your team</h1>
+                <h2>Select your team</h2>
                 <form action="{{route('user.store')}}" method="POST">
                     {{csrf_field()}}
                     <input type="hidden" class="form-control mb-3" name="ip" placeholder="Your Employee ID" value="{{$_SERVER['REMOTE_ADDR']}}">

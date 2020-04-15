@@ -1,5 +1,6 @@
 body {
   background-color: #ffb643;
+  font-family: "Poppins";
 }
 
 .main-container {
@@ -12,6 +13,38 @@ body {
   background-color: #fff;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
+  position: fixed;
+  width: 85vw;
+  left: 0;
+  right: 0;
+  margin: auto;
+  bottom: 0;
+}
+
+.sash h2 {
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.sash .btn-primary {
+  margin: 16px auto;
+  display: block;
+  padding: 10px 60px;
+  background-color: #ff300d;
+  border-color: #ff300d;
+  text-transform: uppercase;
+}
+
+.sash .form-control {
+  font-size: 20px;
+  text-align: center;
+}
+
+.sash p {
+  font-size: 5rem;
+  font-weight: 300;
 }
 
 .lissanagaha {
