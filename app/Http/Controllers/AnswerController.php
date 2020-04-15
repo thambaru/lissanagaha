@@ -47,9 +47,13 @@ class AnswerController extends Controller
                     'value' => 10,
                 ]);
     
-                return redirect()->back();
+                return redirect()->back()->with('message','Elakiri udata nagga');
             } else {
-                return 'waradi bro';
+                $answers = Answer::updateOrcreate(['id' => $request->get('id')], [
+                    'user_id' => 1,
+                    'value' => -10,
+                ]);
+                return redirect()->back()->with('message','Ayyoo waradi ne itin. pallehata bassa');
             }
         }else{
             return 'tho elible naa';

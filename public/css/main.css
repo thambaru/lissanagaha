@@ -1,5 +1,5 @@
 body {
-  background-color: #FFB643;
+  background-color: #ffb643;
 }
 
 .main-container {
@@ -12,5 +12,37 @@ body {
   background-color: #fff;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
+}
+
+.lissanagaha {
+  margin: 0 auto;
+}
+
+.lissanagaha .pole {
+  width: 50px;
+  background-color: brown;
+  height: 92vh;
+  margin: 0 auto;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+}
+
+.lissanagaha .flag {
+  background: red;
+  width: 73px;
+  height: 40px;
+  margin: 0px auto;
+  -webkit-transform: translate(34px, -15px);
+          transform: translate(34px, -15px);
+  margin-top: 35px;
+}
+
+.lissanagaha .flag::after {
+  content: "";
+  width: 4px;
+  height: 60px;
+  background-color: #a52a2a;
+  position: absolute;
+  left: 0;
 }
 /*# sourceMappingURL=main.css.map */

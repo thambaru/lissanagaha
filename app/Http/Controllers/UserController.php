@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 class UserController extends Controller
 {
@@ -51,7 +52,11 @@ class UserController extends Controller
                 "division" => $request->get("division")
             ]);
 
-            return redirect()->route('answer.create')->with('user',1);
+            Cookie::queue('userID', $users->id, 60);
+            return redirect()->route('answer.create');
+          
+            // $response->withCookie(cookie()->forever('userID', '$users->id'));
+            // return $users->id;
         }
     }
 
