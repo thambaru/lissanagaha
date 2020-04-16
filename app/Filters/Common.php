@@ -5,18 +5,19 @@ namespace App\Filters;
 class Common
 {
     static $divisions = [
-        "Amali Nanayakkara", 
-        "Anthony Rodrigo", 
-        "Aroshan Indujeeva", 
-        "Asela Perera", "Lasantha Theverapperuma", 
-        "Navin Peiris", 
-        "Pradeep De Almeida", 
-        "Rainer Deutschmann", 
-        "Renuka Fernando", 
-        "Sandra De Zoysa", 
-        "Shayam Majeed", 
-        "Upali Gajanaike", 
-        "Yap Wai Yip"
+        "Team Aroshan",
+        "Team Anthony",
+        "Team Amali",
+        "Team Asela",
+        "Team Lasantha",
+        "Team Navin",
+        "Team Pradeep",
+        "Team Rainer",
+        "Team Renuka",
+        "Team Sandra",
+        "Team Shayam",
+        "Team Upali",
+        "Team Yap",
     ];
 
     static $randomQuistion = ["5+9", "56+47", "8x4", "6+99"];
