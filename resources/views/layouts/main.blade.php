@@ -12,7 +12,7 @@
 
 <body>
     <div class="container-fluid main-container">
-        <img src="{{asset('img/logo.png')}}" alt="" class="logo {{isset($class) ? 'center-block' : ''}}">
+       <a href="{{route('home')}}"> <img src="{{asset('img/logo.png')}}" alt="" class="logo {{isset($class) ? 'center-block' : ''}}"></a>
        
           @yield('content')
     </div>

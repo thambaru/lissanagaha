@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/', 'LissanagahaController@home');
-Route::get('/api', 'LissanagahaController@api');
+Route::get('/', 'LissanagahaController@home')->name('home');
+Route::get('/api', 'LissanagahaController@api')->name('api');
 
 
 Route::resource('user', 'UserController');

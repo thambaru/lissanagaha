@@ -44,7 +44,7 @@
 
             @else
             @if(count($errors)>0)
-            <div class="text-center alert alert-danger shadow alert-dismissible fade show hide-print" id="absolute-alert" role="alert">
+            <div class="text-center alert alert-danger alert-dismissible fade show hide-print" id="absolute-alert" role="alert">
 
                 @foreach($errors->all() as $err )
                 {{$err}}
@@ -61,10 +61,10 @@
                     {{csrf_field()}}
                     <input type="hidden" class="form-control mb-3" name="ip" placeholder="Your Employee ID" value="{{$_SERVER['REMOTE_ADDR']}}">
                     <input type="text" class="form-control mb-3" name="emp_id" placeholder="Your Employee ID" value="{{old('emp_id')}}" required>
-                    <select id="team" class="form-control" name="division">
-                        <option>Select your team...</option>
+                    <select id="team" class="form-control" name="division" required>
+                        <option value="">Select your team...{{old('division')}}</option>
                         @foreach(\App\Filters\Common::$divisions as $key=>$val)
-                        <option value="{{$key}}">{{$val}}</option>
+                        <option value="{{$key}}" {{(old('division') != "" && old('division') == $key) ? 'selected': ''}}>{{$val}}</option>
                         @endforeach
                     </select>
                     <button class="btn btn-lg btn-primary">Select</button>

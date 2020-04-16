@@ -38,13 +38,13 @@ class UserController extends Controller
         $request->validate(
             [
                 'ip' => 'required',
-                'emp_id' => 'required|unique:users',
+                'emp_id' => 'required|unique:users|numeric',
                 'division' => 'required'
             ]
         );
 
-        if (User::where('division', 1)->count() > 10) {
-            return 'your division has enough members';
+        if (User::where('division', $request->get("division"))->count() > 3) {
+            return redirect()->route('home')->withErrors(['teamFull',true]);
         } else {
             $users = User::updateOrcreate(['id' => $request->get('id')], [
                 "ip" => $request->get("ip"),
@@ -55,7 +55,7 @@ class UserController extends Controller
             Cookie::queue('userID', $users->id, 360);
             Cookie::queue('division', $request->get("division"), 360);
             return redirect()->route('answer.create');
-          
+
             // $response->withCookie(cookie()->forever('userID', '$users->id'));
             // return $users->id;
         }
@@ -110,4 +110,9 @@ class UserController extends Controller
     {
         return User::where('division', $division)->count();
     }
+
+
+    public static  $messages = array(
+        'emp_id.required' => 'You have already logged in somewhere', 
+    );
 }

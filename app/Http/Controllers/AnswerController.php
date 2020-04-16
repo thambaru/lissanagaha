@@ -107,4 +107,8 @@ class AnswerController extends Controller
 
         return $last->created_at->addMinutes(self::$config['disallowingMinutes'])->lt(Carbon::now());
     }
+
+    public static  $messages = array(
+        'emp_id.unique:users' => 'You have already logged in somewhere', 
+    );
 }
