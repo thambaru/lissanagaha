@@ -9,48 +9,52 @@
     <div class="row">
         <div class="col">
 
-            @if(count($errors)>0)
-            <div class="alert alert-danger shadow alert-dismissible fade show hide-print" id="absolute-alert" role="alert">
-                <ul>
-                    @foreach($errors->all() as $err )
-                    <li>{{$err}}</li>
-                    @endforeach
-                </ul>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            @endif
+
 
             @if (Cookie::get('userID') !== null)
 
             @if($lg::isExisting() && !$lg::isEligible())
+            @if(count($errors)>0) 
+
+            <h3 class="mt-2 text-center text-{{ $errors->all()[1]}}"> {{$errors->all()[0]}}</h3>
+            @endif
+            
             <h2>Please wait...</h2>
             <p class="text-center">
                 Your next question will be appear in <span id="time-to-go"></span>
-
             </p>
             @else
+          
             <form action="{{route('answer.store')}}" method="POST" id="answerForm">
                 {{csrf_field()}}
                 <section id="quiz" class="text-center">
                     <h2>Solve this quick</h2>
                     <p class="quiz">{{$question}}</p>
                     <input type="hidden" class="form-control" name="q" value="{{$q}}">
-                    <input type="text" class="form-control" id="answer" name="answer" {{$lg::isEligible()?'':'disabled'}}>
+                    <input type="text" class="form-control" required id="answer" name="answer" {{$lg::isEligible()?'':'disabled'}}>
                     <button class="btn btn-lg btn-primary" {{$lg::isEligible()?'':'disabled'}}>Climb Now!</button>
                     @if($lg::isEligible())
-                    <p>Question will be expires in <span id="q-expire">5</span> seconds</p>
+                    <p>Question will be expires in <span id="q-expire">10</span> seconds</p>
                     @endif
                 </section>
             </form>
             @endif
 
 
-            @if(isset($message))
-            {{$message}}
-            @endif
+
             @else
+            @if(count($errors)>0)
+            <div class="text-center alert alert-danger shadow alert-dismissible fade show hide-print" id="absolute-alert" role="alert">
+
+                @foreach($errors->all() as $err )
+                {{$err}}
+                @endforeach
+
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endif
             <section id="teamSelect">
                 <h2>Select your team</h2>
                 <form action="{{route('user.store')}}" method="POST">
@@ -95,19 +99,27 @@
 
 @if($lg::isEligible())
 <script type="text/javascript">
-    var counter = 50; //10 is enough
+    var counter = 10; //10 is enough
+    var isPaused;
+
     var interval = setInterval(function() {
-        counter--;
-        $("#q-expire").html(counter);
-        if (counter == 0) { 
-            $(window).focus(function() {
+        if (!isPaused) {
+            counter--;
+            $("#q-expire").html(counter);
+            if (counter == 0) {
                 $("#answer").val(0);
                 $("#answerForm").submit();
-            });
-
-            clearInterval(interval);
+                clearInterval(interval);
+            }
         }
     }, 1000);
+    $(window).focus(function() {
+        isPaused = false;
+
+    });
+    $(window).blur(function() {
+        isPaused = true;
+    });
 </script>
 @endif
 @endsection
