@@ -20,6 +20,6 @@ class Common
         "Team Yap",
     ];
 
-    static $randomQuistion = ["5+9", "56+47", "8x4", "6+99"];
-    static $randomAnswers = ["14", "103", "24", "105"];
+    static $randomQuistion = ["15*7", "56+47", "8x4", "6+99","69+85","81-17","98/7","2520-148","56-9"];
+    static $randomAnswers = ["105", "103", "24", "105","154","64", "14","2372","47"];
 }

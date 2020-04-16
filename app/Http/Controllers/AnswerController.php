@@ -13,8 +13,8 @@ class AnswerController extends Controller
 {
     static $config = [
         'randFirst' => 0,
-        'randLast' => 3,
-        'disallowingMinutes' => 1,
+        'randLast' => 8,
+        'disallowingMinutes' => 5,
         'maxLimit' => 2000
     ];
 
