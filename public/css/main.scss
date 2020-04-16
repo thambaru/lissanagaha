@@ -59,6 +59,8 @@ body {
 
 .lissanagaha {
     margin: 0 auto;
+    border-bottom: 1px solid rgba(165, 42, 42, 0.24);
+    
     .pole {
         width: 50px;
         background-color: brown;
@@ -134,5 +136,11 @@ body {
 @media(min-width:1281px){
     .sash{
         width: 40vw;
+    }
+}
+
+@media(max-width:350px){
+    .btn-primary{
+        padding: 10px 20px;
     }
 }

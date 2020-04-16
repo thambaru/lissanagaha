@@ -11,11 +11,11 @@
             <div class="box">Team Sandra</div>
         </div> -->
         @foreach($teams as $key=>$val)
-        @if($score[$key] > 0)
+        @if($score[$key] > -10)
         <?php
         $climb =   $score[$key] / 250 * 100
         ?>
-        <div class="team {{$key%2==0 ? 'right' : ''}}" style="bottom:{{$climb}}%">
+        <div class="team {{$key%2==0 ? 'right' : ''}}" style="bottom:{{$climb}}vh">
             <div class="point"></div>
             <div class="arrow"></div>
             <div class="box">{{$teams[$key]}}</div>
@@ -24,25 +24,40 @@
         @endforeach
     </div>
 </div>
+
+<table class="table table-borderless">
+    <tr>
+        <th>Team</th>
+        <th class="text-right">Points</th>
+    </tr>
+    @foreach($teams as $key=>$val)
+    <tr>
+        <td>{{$teams[$key]}}</td>
+        <td class="text-right">{{$score[$key]}}</td>
+    </tr>
+    @endforeach
+</table>
+
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Sorry!</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Your team has already enough members. But you can still watch the competion
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-      </div>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Sorry!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Your team has already enough members. But you can still watch the competion
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 @endsection
 

@@ -16,8 +16,8 @@ class LissanagahaController extends Controller
             array_push($teamsScore, Answer::where('division', $key)->sum('value'));
         }
         // return $teamsScore;
-
-        return view('index')->with(['teams' => $teams, 'score'=> $teamsScore]);
+        $final  = array_combine( $teams, $teamsScore );
+        return view('index')->with(['teams' => $teams, 'score'=> $teamsScore, 'final' =>$final]);
     }
 
     public function api()
@@ -27,6 +27,7 @@ class LissanagahaController extends Controller
         foreach ($teams as $key => $value) {
             array_push($teamsScore, Answer::where('division', $key)->sum('value'));
         }
-        return $teamsScore;
+       $final  = array_combine( $teams, $teamsScore );
+        return $final;
     }
 }
