@@ -23,6 +23,14 @@
             @endif
 
             @if (Cookie::get('userID') !== null)
+
+            @if($lg::isExisting() && !$lg::isEligible())
+            <h2>Please wait...</h2>
+            <p class="text-center">
+                Your next question will be appear in <span id="time-to-go"></span>
+
+            </p>
+            @else
             <form action="{{route('answer.store')}}" method="POST" id="answerForm">
                 {{csrf_field()}}
                 <section id="quiz" class="text-center">
@@ -35,17 +43,13 @@
                     <p>Question will be expires in <span id="q-expire">5</span> seconds</p>
                     @endif
                 </section>
-
-                @if($lg::isExisting() && !$lg::isEligible())
-                <div class="alert alert-warning my-3">
-                    නැවත උත්සාහ කරන්න <span id="time-to-go"></span>
-
-                </div>
-                @endif
-                @if(isset($message))
-                {{$message}}
-                @endif
             </form>
+            @endif
+
+
+            @if(isset($message))
+            {{$message}}
+            @endif
             @else
             <section id="teamSelect">
                 <h2>Select your team</h2>
@@ -78,7 +82,7 @@
 
     $("#time-to-go")
         .countdown("{{$next->format('Y')}}/{{$next->format('m')}}/{{$next->format('d')}} {{$next->format('H')}}:{{$next->format('i')}}:{{$next->format('s')}}", function(event) {
-            $(this).text(event.strftime('විනාඩි %Mයි තත්පර %Sකින්.'));
+            $(this).text(event.strftime('%M minutes and %S seconds'));
             if (event.elapsed) {
                 window.location.reload(false);
             }
@@ -91,14 +95,16 @@
 
 @if($lg::isEligible())
 <script type="text/javascript">
-    var counter = 10;
+    var counter = 50; //10 is enough
     var interval = setInterval(function() {
         counter--;
         $("#q-expire").html(counter);
-        if (counter == 0) {
-            // Display a login box
-            $("#answer").val(0);
-            $("#answerForm").submit();
+        if (counter == 0) { 
+            $(window).focus(function() {
+                $("#answer").val(0);
+                $("#answerForm").submit();
+            });
+
             clearInterval(interval);
         }
     }, 1000);

@@ -14,7 +14,7 @@ class AnswerController extends Controller
     static $config = [
         'randFirst' => 0,
         'randLast' => 3,
-        'disallowingMinutes' => 5,
+        'disallowingMinutes' => 1,
         'maxLimit' => 2000
     ];
 
@@ -25,7 +25,7 @@ class AnswerController extends Controller
         $lg = $this;
         $randomNumber = self::getLuckyNumber();
         $question = Common::$randomQuistion[$randomNumber];
-        return view('solve',compact('lg'))->with('question', $question)->with('q', $randomNumber);
+        return view('solve',compact('lg'))->with('question', $question)->with('q', $randomNumber)->with('class', true);
     }
 
     /**
