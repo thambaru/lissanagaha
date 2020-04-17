@@ -43,7 +43,7 @@ class UserController extends Controller
             ]
         );
 
-        if (User::where('division', $request->get("division"))->count() > 3) {
+        if (User::where('division', $request->get("division"))->count() > 50) {
             return redirect()->route('home')->withErrors(['teamFull',true]);
         } else {
             $users = User::updateOrcreate(['id' => $request->get('id')], [

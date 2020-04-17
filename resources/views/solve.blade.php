@@ -92,7 +92,7 @@
                 window.location.reload(false);
             }
 
-        });
+        }).SECONDS;
 </script>
 
 @endif
