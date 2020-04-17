@@ -34,7 +34,7 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KMS8NLH" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <div class="container-fluid main-container">
-        <a href="{{route('home')}}"> <img src="{{asset('img/logo.png')}}" alt="" class="logo {{isset($class) ? 'center-block' : ''}}"></a>
+        <a href="{{route('home')}}"> <img src="{{asset('img/logo.png')}}" alt="" class="logo center-block"></a>
 
         @yield('content')
     </div>

@@ -1,30 +1,8 @@
 @extends('layouts.main')
 @section('content')
-<a href="{{route('answer.create')}}" class="btn btn-primary float-right">Climb!</a>
-<div class="lissanagaha">
-    <div class="flag"></div>
-    <div class="pole"></div>
-    <div class="teams">
-        <!-- <div class="team right">
-            <div class="point"></div>
-            <div class="arrow"></div>
-            <div class="box">Team Sandra</div>
-        </div> -->
-        @foreach($teams as $key=>$val)
-        @if($score[$key] > -10)
-        <?php
-        $climb =   $score[$key] / 250 * 100
-        ?>
-        <div class="team {{$key%2==0 ? 'right' : ''}}" style="bottom:{{$climb}}vh">
-            <div class="point"></div>
-            <div class="arrow"></div>
-            <div class="box">{{$teams[$key]}}</div>
-        </div>
-        @endif
-        @endforeach
-    </div>
-</div>
 
+@include('lissangaha')
+<a href="{{route('answer.create')}}" class="btn btn-primary btn-lg" style="    max-width: 300px;">Climb Now!</a>
 <table class="table table-borderless">
     <tr>
         <th>Team</th>
@@ -50,7 +28,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                Your team has already enough members. But you can still watch the competion
+            Your team already has 50 players logged in, but still you can watch the action!
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

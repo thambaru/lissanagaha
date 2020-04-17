@@ -24,10 +24,14 @@ body {
     border-color: $primary-color;
     text-transform: uppercase;
 }
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active:focus{
+    background-color: #dd2e10;
+    border-color: #dd2e10;
+}
 
 .sash {
     padding: 40px 25px;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.808);
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
     position: fixed;
@@ -49,8 +53,9 @@ body {
     }
 
     p {
-        // font-size: 5rem;
+        font-size: 20px;
         font-weight: 300;
+        
     }
     .quiz {
         font-size: 4rem;

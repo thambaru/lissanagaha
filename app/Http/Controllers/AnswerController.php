@@ -25,7 +25,19 @@ class AnswerController extends Controller
         $lg = $this;
         $randomNumber = self::getLuckyNumber();
         $question = Common::$randomQuistion[$randomNumber];
-        return view('solve', compact('lg'))->with('question', $question)->with('q', $randomNumber)->with('class', true);
+        $teams = Common::$divisions;
+        $teamsScore = [];
+        foreach ($teams as $key => $value) {
+            array_push($teamsScore, Answer::where('division', $key)->sum('value'));
+        }
+        // return $teamsScore;
+        $final  = array_combine( $teams, $teamsScore );
+
+
+
+        return view('solve', compact('lg'))->with('question', $question)->with('q', $randomNumber)->with('class', true)->with(['teams' => $teams, 'score'=> $teamsScore, 'final' =>$final]);;
+
+ 
     }
 
     /**
@@ -60,14 +72,14 @@ class AnswerController extends Controller
                     'division' => $division,
                     'value' => -10,
                 ]);
-                return redirect()->back()->withErrors(['message' => 'Oops! Times up! Your team just came down','errorType'=>'danger']);
+                return redirect()->back()->withErrors(['message' => " Time's up and you slipped down the Lissana Gaha because you didn't answer",'errorType'=>'danger']);
             } else {
                 $answers = Answer::updateOrcreate(['id' => $request->get('id')], [
                     'user_id' => $userId,
                     'division' => $division,
                     'value' => -10,
                 ]);
-                return redirect()->back()->withErrors(['message' => 'Oops! It was wrong','errorType'=>'danger']);
+                return redirect()->back()->withErrors(['message' => 'Oops! Your team lost points because you got the answer wrong','errorType'=>'danger']);
             }
         } else {
             return redirect()->back();
