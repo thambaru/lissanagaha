@@ -1,3 +1,17 @@
+<!--
+Hey you! 
+
+Came here to see the code or find a way to cheat? 
+
+Sorry bro! 
+Everything is validating on the backend, You can't do anything with JS here.
+
+Anyway, thanks for coming by :) 
+
+Cheers!
+Sashen Pasindu
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,6 +51,8 @@
         <a href="{{route('home')}}"> <img src="{{asset('img/logo.png')}}" alt="" class="logo center-block"></a>
 
         @yield('content')
+
+      
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

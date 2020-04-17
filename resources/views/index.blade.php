@@ -37,6 +37,9 @@
         </div>
     </div>
 </div>
+<audio autoplay="autoplay" id="bg-music" loop="loop">
+            <source src="{{asset('mp3/bg.mp3')}}" />
+        </audio>
 @endsection
 
 @section('scripts')
