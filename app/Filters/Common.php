@@ -7,10 +7,9 @@ use App\Answer;
 class Common
 {
     static $config = [
-        'randFirst' => 0,
-        'randLast' => 8,
+        'randomQuestionCount' => 100,
         'disallowingMinutes' => 1, //3,
-        'questionAnswerSeconds' => 5,
+        'questionAnswerSeconds' => 1000005,
         'maxLimit' => 2000,
         'plusPoints' => 10,
         'minusPoints' => -10
@@ -22,9 +21,6 @@ class Common
         "Team C", //2
         "Team D", //3
     ];
-
-    static $randomQuestions = ["15x7", "56+47", "8x4", "6+99", "69+85", "81-17", "98/7", "2520-148", "56-9"];
-    static $randomAnswers = ["105", "103", "32", "105", "154", "64", "14", "2372", "47"];
 
     public static function getScores()
     {
@@ -45,5 +41,25 @@ class Common
                 return true;
         }
         return false;
+    }
+
+    public static function generateRandomQuestion()
+    {
+        $ops = ['-', '+', '*'];
+
+        $answer = -1;
+        while ($answer <= 5 || $answer >= 99) {
+
+            $num1 = rand(10, 100);
+            $num2 = rand(10, 100);
+
+            $rand_op = array_rand($ops);
+            $op = $ops[$rand_op];
+
+            $question = "$num1 $op $num2";
+            $answer = eval("return $num1 $op $num2;");
+        }
+
+        return compact("question", "answer");
     }
 }

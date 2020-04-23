@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Answer;
 use App\Filters\Common;
+use App\RandomQuestion;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -22,8 +23,11 @@ class AnswerController extends Controller
     {
 
         $lg = $this;
-        $randomNumber = self::getLuckyNumber();
-        $question = Common::$randomQuestions[$randomNumber];
+        
+        $randomQuestion = RandomQuestion::all()->random();
+        $randomQuestionId = $randomQuestion->id;
+        $question = $randomQuestion->question;
+
         $teams = Common::$divisions;
         $teamsScore = [];
         foreach ($teams as $key => $value) {
@@ -34,7 +38,7 @@ class AnswerController extends Controller
 
 
 
-        return view('solve', compact('lg'))->with('question', $question)->with('q', $randomNumber)->with('class', true)->with(['teams' => $teams, 'score' => $teamsScore, 'final' => $final]);;
+        return view('solve', compact('lg'))->with('question', $question)->with('q', $randomQuestionId)->with('class', true)->with(['teams' => $teams, 'score' => $teamsScore, 'final' => $final]);;
     }
 
     /**
@@ -51,7 +55,7 @@ class AnswerController extends Controller
         $division = $request->cookie('division');
 
         if (self::isEligible()) {
-            if ($request->get('answer') == Common::$randomAnswers[$request->get('q')]) {
+            if ($request->get('answer') == RandomQuestion::find($request->get('q'))->answer) {
 
                 $answers = Answer::updateOrcreate(['id' => $request->get('id')], [
                     'user_id' => $userId,
@@ -59,7 +63,7 @@ class AnswerController extends Controller
                     'value' => self::$config['plusPoints'],
                 ]);
 
-                $message = "Congrats, You climbed up!";
+                $message = ['message' => "Congrats, You climbed up!", 'errorType' => "success"];
             } else {
                 $answers = Answer::updateOrcreate(['id' => $request->get('id')], [
                     'user_id' => $userId,
@@ -67,21 +71,14 @@ class AnswerController extends Controller
                     'value' => self::$config['minusPoints'],
                 ]);
                 if ($request->get('answer') == 0 || !$request->filled('answer'))
-                    $message = "Time's up and you slipped down! (" . self::$config['minusPoints'] . " points)";
+                    $message = ['message' => "Time's up and you slipped down! (" . self::$config['minusPoints'] . " points)", 'errorType' => "danger"];
                 else
-                    $message = "Oops! You've lost " . self::$config['minusPoints'] . " points for the team for that wrong answer";
+                    $message = ['message' => "Oops! You've lost " . self::$config['minusPoints'] . " points for the team for that wrong answer", 'errorType' => "danger"];
             }
-            return redirect()->back()->withErrors(['message' => $message, 'errorType' => 'danger']);
+            return redirect()->back()->withErrors($message);
         } else {
             return redirect()->back();
         }
-    }
-
-    function getLuckyNumber()
-    {
-        $luckyNumber = rand(self::$config['randFirst'], self::$config['randLast']);
-
-        return $luckyNumber;
     }
 
     static function myResult()
