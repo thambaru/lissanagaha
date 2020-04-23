@@ -11,7 +11,7 @@
 
 
             ?>
-            @if($mytime < '2020-04-17 17:00:00' ) @if (Cookie::get('userID') !==null) @if($lg::isExisting() && !$lg::isEligible()) @if(count($errors)>0)
+            @if($mytime < '2020-05-17 17:00:00' ) @if (Cookie::get('userID') !==null) @if($lg::isExisting() && !$lg::isEligible()) @if(count($errors)>0)
 
                 <h3 class="mt-2 text-center text-{{ $errors->all()[1]}}"> {{$errors->all()[0]}}</h3>
                 @endif
@@ -31,7 +31,7 @@
                         <input type="text" class="form-control" required id="answer" name="answer" {{$lg::isEligible()?'':'disabled'}} placeholder="Your Answer">
                         <button class="btn btn-lg btn-primary" {{$lg::isEligible()?'':'disabled'}}>Climb Now!</button>
                         @if($lg::isEligible())
-                        <p>Question will be expires in <span id="q-expire">10</span> seconds</p>
+                        <p>Question expires in <span id="q-expire"></span> seconds</p>
                         @endif
                     </section>
                 </form>
@@ -100,27 +100,17 @@
 
 @if($lg::isEligible())
 <script type="text/javascript">
-    var counter = 15; //10 is enough
+    var counter = {{$lg::$config['questionAnswerSeconds']}};
     var isPaused;
 
     var interval = setInterval(function() {
-        if (!isPaused) {
-            counter--;
-            $("#q-expire").html(counter);
-            if (counter == 0) {
-                $("#answer").val(0);
-                $("#answerForm").submit();
-                clearInterval(interval);
-            }
+        counter--;
+        $("#q-expire").html(counter);
+        if (counter == 0) {
+            $("#answerForm").submit();
+            clearInterval(interval);
         }
     }, 1000);
-    $(window).focus(function() {
-        isPaused = false;
-
-    });
-    $(window).blur(function() {
-        isPaused = true;
-    });
 </script>
 @endif
 @endsection

@@ -28,7 +28,7 @@
                 </button>
             </div>
             <div class="modal-body">
-            Your team already has 50 players logged in, but still you can watch the action!
+            Your team already has all the players logged in, but still you can watch the action!
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -37,9 +37,7 @@
         </div>
     </div>
 </div>
-<audio autoplay="autoplay" id="bg-music" loop="loop">
-            <source src="{{asset('mp3/bg.mp3')}}" />
-        </audio>
+
 @endsection
 
 @section('scripts')

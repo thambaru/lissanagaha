@@ -14,8 +14,11 @@ class AnswerController extends Controller
     static $config = [
         'randFirst' => 0,
         'randLast' => 8,
-        'disallowingMinutes' => 5,
-        'maxLimit' => 2000
+        'disallowingMinutes' => 1,//3,
+        'questionAnswerSeconds' => 5,
+        'maxLimit' => 2000,
+        'plusPoints' => 10,
+        'minusPoints' => -10
     ];
 
 
@@ -24,20 +27,18 @@ class AnswerController extends Controller
 
         $lg = $this;
         $randomNumber = self::getLuckyNumber();
-        $question = Common::$randomQuistion[$randomNumber];
+        $question = Common::$randomQuestions[$randomNumber];
         $teams = Common::$divisions;
         $teamsScore = [];
         foreach ($teams as $key => $value) {
             array_push($teamsScore, Answer::where('division', $key)->sum('value'));
         }
         // return $teamsScore;
-        $final  = array_combine( $teams, $teamsScore );
+        $final  = array_combine($teams, $teamsScore);
 
 
 
-        return view('solve', compact('lg'))->with('question', $question)->with('q', $randomNumber)->with('class', true)->with(['teams' => $teams, 'score'=> $teamsScore, 'final' =>$final]);;
-
- 
+        return view('solve', compact('lg'))->with('question', $question)->with('q', $randomNumber)->with('class', true)->with(['teams' => $teams, 'score' => $teamsScore, 'final' => $final]);;
     }
 
     /**
@@ -49,9 +50,6 @@ class AnswerController extends Controller
     public function store(Request $request)
     {
         $lg = $this;
-        $request->validate([
-            'answer' => 'required'
-        ]);
 
         $userId = $request->cookie('userID');
         $division = $request->cookie('division');
@@ -62,25 +60,22 @@ class AnswerController extends Controller
                 $answers = Answer::updateOrcreate(['id' => $request->get('id')], [
                     'user_id' => $userId,
                     'division' => $division,
-                    'value' => 10,
+                    'value' => self::$config['plusPoints'],
                 ]);
 
-                return redirect()->back()->withErrors(['message' => 'Congrats! You made your team climb up the Lissana Gaha','errorType'=>'success']);
-            } else if ($request->get('answer') == 0) {
-                $answers = Answer::updateOrcreate(['id' => $request->get('id')], [
-                    'user_id' => $userId,
-                    'division' => $division,
-                    'value' => -10,
-                ]);
-                return redirect()->back()->withErrors(['message' => " Time's up and you slipped down the Lissana Gaha because you didn't answer",'errorType'=>'danger']);
+                $message = "Congrats, You climbed up!";
             } else {
                 $answers = Answer::updateOrcreate(['id' => $request->get('id')], [
                     'user_id' => $userId,
                     'division' => $division,
-                    'value' => -10,
+                    'value' => self::$config['minusPoints'],
                 ]);
-                return redirect()->back()->withErrors(['message' => 'Oops! Your team lost points because you got the answer wrong','errorType'=>'danger']);
+                if ($request->get('answer') == 0 || !$request->filled('answer'))
+                    $message = "Time's up and you slipped down! (" . self::$config['minusPoints'] . " points)";
+                else
+                    $message = "Oops! You've lost " . self::$config['minusPoints'] . " points for the team for that wrong answer";
             }
+            return redirect()->back()->withErrors(['message' => $message, 'errorType' => 'danger']);
         } else {
             return redirect()->back();
         }
@@ -121,6 +116,6 @@ class AnswerController extends Controller
     }
 
     public static  $messages = array(
-        'emp_id.unique:users' => 'You have already logged in somewhere', 
+        'emp_id.unique:users' => 'You have already logged in somewhere',
     );
 }
