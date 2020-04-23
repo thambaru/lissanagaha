@@ -2,7 +2,7 @@
 @section('content')
 
 @include('lissangaha')
-<a href="{{route('answer.create')}}" class="btn btn-primary btn-lg" style="    max-width: 300px;">Climb Now!</a>
+<a href="{{route('answer.create')}}" class="btn btn-primary btn-lg btn-climb" >Climb Now!</a>
 <table class="table table-borderless">
     <tr>
         <th>Team</th>

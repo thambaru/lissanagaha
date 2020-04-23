@@ -32,6 +32,14 @@ body {
   border-color: #dd2e10;
 }
 
+.btn-climb {
+  max-width: 300px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
 .sash {
   padding: 40px 25px;
   background-color: rgba(255, 255, 255, 0.808);

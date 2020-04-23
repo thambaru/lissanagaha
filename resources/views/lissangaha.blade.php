@@ -10,7 +10,7 @@
         @foreach($teams as $key=>$val)
         @if($score[$key] > -10)
         <?php
-        $climb =   $score[$key] / 250 * 100;
+        $climb =   $score[$key] / 250 * 10;
         if($climb > 80){
             $climb = 80;
         }elseif($climb == 0){
