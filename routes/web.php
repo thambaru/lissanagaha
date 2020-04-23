@@ -14,6 +14,7 @@
 Route::get('/', 'LissanagahaController@home')->name('home');
 Route::get('/api', 'LissanagahaController@api')->name('api');
 
-
 Route::resource('user', 'UserController');
+Route::post('/login', 'UserController@login')->name('user.login');
+
 Route::resource('answer', 'AnswerController');

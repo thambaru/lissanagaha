@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 
 class UserController extends Controller
@@ -35,30 +36,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(
-            [
-                'ip' => 'required',
-                'emp_id' => 'required|unique:users|numeric',
-                'division' => 'required'
-            ]
-        );
-
-        if (User::where('division', $request->get("division"))->count() > 50) {
-            return redirect()->route('home')->withErrors(['teamFull',true]);
-        } else {
-            $users = User::updateOrcreate(['id' => $request->get('id')], [
-                "ip" => $request->get("ip"),
-                "emp_id" => $request->get("emp_id"),
-                "division" => $request->get("division")
-            ]);
-
-            Cookie::queue('userID', $users->id, 360);
-            Cookie::queue('division', $request->get("division"), 360);
-            return redirect()->route('answer.create');
-
-            // $response->withCookie(cookie()->forever('userID', '$users->id'));
-            // return $users->id;
-        }
+        //
     }
 
     /**
@@ -106,13 +84,36 @@ class UserController extends Controller
         //
     }
 
+    public function login(Request $request)
+    {
+        $request->validate(
+            [
+                'emp_id' => 'required|email',
+                'password' => 'required'
+            ]
+        );
+
+        $credentials = $request->only('emp_id', 'password');
+
+        if (User::where('division', $request->get("division"))->count() > 50)
+            return redirect()->route('home')->withErrors(['teamFull', true]);
+
+        if (Auth::attempt($credentials)) {
+
+            $user = Auth::user();
+
+            Cookie::queue('userID', $user->id, 360);
+            Cookie::queue('division', $user->division, 360);
+
+            return redirect()->route('answer.create');
+
+        } else {
+            return redirect()->back()->withErrors(['Invalid Email/PIN'])->withInput();
+        }
+    }
+
     static function getDivisionUserCount($division)
     {
         return User::where('division', $division)->count();
     }
-
-
-    public static  $messages = array(
-        'emp_id.required' => 'You have already logged in somewhere', 
-    );
 }

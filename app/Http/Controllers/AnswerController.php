@@ -19,11 +19,16 @@ class AnswerController extends Controller
         self::$config = Common::$config;
     }
 
+    public function index()
+    {
+        return redirect()->route('answer.create');
+    }
+
     public function create()
     {
 
         $lg = $this;
-        
+
         $randomQuestion = RandomQuestion::all()->random();
         $randomQuestionId = $randomQuestion->id;
         $question = $randomQuestion->question;
@@ -65,13 +70,14 @@ class AnswerController extends Controller
 
                 $message = ['message' => "Congrats, You climbed up!", 'errorType' => "success"];
             } else {
+
                 $answers = Answer::updateOrcreate(['id' => $request->get('id')], [
                     'user_id' => $userId,
                     'division' => $division,
                     'value' => self::$config['minusPoints'],
                 ]);
                 if ($request->get('answer') == 0 || !$request->filled('answer'))
-                    $message = ['message' => "Time's up and you slipped down! (" . self::$config['minusPoints'] . " points)", 'errorType' => "danger"];
+                    $message = ['message' => "Time's up and you slipped down!", 'errorType' => "danger"];
                 else
                     $message = ['message' => "Oops! You've lost " . self::$config['minusPoints'] . " points for the team for that wrong answer", 'errorType' => "danger"];
             }

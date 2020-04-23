@@ -7,19 +7,19 @@ use App\Answer;
 class Common
 {
     static $config = [
+        'companyName' => 'Roar',
+        'logoPath' => '',
         'randomQuestionCount' => 100,
-        'disallowingMinutes' => 1, //3,
-        'questionAnswerSeconds' => 1000005,
+        'disallowingMinutes' => 3,
+        'questionAnswerSeconds' => 15,
         'maxLimit' => 2000,
         'plusPoints' => 10,
-        'minusPoints' => -10
+        'minusPoints' => -10,
     ];
 
     static $divisions = [
         "Team A", //0
         "Team B", //1
-        "Team C", //2
-        "Team D", //3
     ];
 
     public static function getScores()
