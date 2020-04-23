@@ -2,11 +2,6 @@
     <div class="flag"></div>
     <div class="pole"></div>
     <div class="teams">
-        <!-- <div class="team right">
-            <div class="point"></div>
-            <div class="arrow"></div>
-            <div class="box">Team Sandra</div>
-        </div> -->
         @foreach($teams as $key=>$val)
         @if($score[$key] > -10)
         <?php

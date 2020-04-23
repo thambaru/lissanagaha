@@ -20,14 +20,8 @@ class LissanagahaController extends Controller
         return view('index')->with(['teams' => $teams, 'score'=> $teamsScore, 'final' =>$final]);
     }
 
-    public function api()
+    public static function api()
     {
-        $teams = Common::$divisions;
-        $teamsScore = [];
-        foreach ($teams as $key => $value) {
-            array_push($teamsScore, Answer::where('division', $key)->sum('value'));
-        }
-       $final  = array_combine( $teams, $teamsScore );
-        return $final;
+        return Common::getScores();
     }
 }

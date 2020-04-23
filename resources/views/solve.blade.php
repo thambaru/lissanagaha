@@ -5,13 +5,7 @@
 <div class="sash">
     <div class="row">
         <div class="col">
-
-            <?php
-            $mytime = Carbon\Carbon::now();
-
-
-            ?>
-            @if($mytime < '2020-05-17 17:00:00' ) @if (Cookie::get('userID') !==null) @if($lg::isExisting() && !$lg::isEligible()) @if(count($errors)>0)
+            @if( !App\Filters\Common::hasAnyoneReachedLimit() ) @if (Cookie::get('userID') !==null) @if($lg::isExisting() && !$lg::isEligible()) @if(count($errors)>0)
 
                 <h3 class="mt-2 text-center text-{{ $errors->all()[1]}}"> {{$errors->all()[0]}}</h3>
                 @endif

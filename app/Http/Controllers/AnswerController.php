@@ -11,16 +11,12 @@ use Illuminate\Support\Facades\Auth;
 
 class AnswerController extends Controller
 {
-    static $config = [
-        'randFirst' => 0,
-        'randLast' => 8,
-        'disallowingMinutes' => 1,//3,
-        'questionAnswerSeconds' => 5,
-        'maxLimit' => 2000,
-        'plusPoints' => 10,
-        'minusPoints' => -10
-    ];
+    static $config = [];
 
+    function __construct()
+    {
+        self::$config = Common::$config;
+    }
 
     public function create()
     {
