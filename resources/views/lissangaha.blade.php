@@ -6,8 +6,8 @@
         @if($score[$key] > -10)
         <?php
         $climb =   $score[$key] / 250 * 10;
-        if($climb > 80){
-            $climb = 80;
+        if($climb > 75){
+            $climb = 75;
         }elseif($climb == 0){
             $climb = -10;
         }

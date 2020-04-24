@@ -6,12 +6,13 @@
 <table class="table table-borderless">
     <tr>
         <th>Team</th>
-        <th class="text-right">Points</th>
+        <th class="text-right">Height</th>
     </tr>
     @foreach($teams as $key=>$val)
     <tr>
         <td>{{$teams[$key]}}</td>
-        <td class="text-right">{{$score[$key]}}</td>
+
+        <td class="text-right">{{$score[$key]}} m</td>
     </tr>
     @endforeach
 </table>

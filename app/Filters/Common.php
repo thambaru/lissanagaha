@@ -8,7 +8,6 @@ class Common
 {
     static $config = [
         'companyName' => 'Roar',
-        'logoPath' => '',
         'randomQuestionCount' => 100,
         'disallowingMinutes' => 3,
         'questionAnswerSeconds' => 15,
@@ -41,6 +40,21 @@ class Common
                 return true;
         }
         return false;
+    }
+
+    public static function getMostAchievedDivision()
+    {
+        $teams = Common::$divisions;
+        $scores = [];
+
+        foreach ($teams as $key => $value)
+            $scores[] = Answer::where('division', $key)->sum('value');
+
+        $highest = max($scores);
+
+        $teamKey = array_keys($scores, $highest)[0];
+
+        return $teams[$teamKey];
     }
 
     public static function generateRandomQuestion()

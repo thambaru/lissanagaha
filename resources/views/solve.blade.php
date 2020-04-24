@@ -5,7 +5,11 @@
 <div class="sash">
     <div class="row">
         <div class="col">
-            @if( !App\Filters\Common::hasAnyoneReachedLimit() ) @if (Cookie::get('userID') !==null) @if($lg::isExisting() && !$lg::isEligible()) @if(count($errors)>0)
+            @if( !App\Filters\Common::hasAnyoneReachedLimit() )
+
+            @if (Cookie::get('userID') !==null) @if($lg::isExisting() && !$lg::isEligible())
+
+            @if(count($errors)>0)
 
             <h3 class="mt-2 text-center text-{{ $errors->all()[1]}}"> {{$errors->all()[0]}}</h3>
             @endif
@@ -50,7 +54,7 @@
                 <h2>Login to continue</h2>
                 <form action="{{route('user.login')}}" method="POST">
                     {{csrf_field()}}
-                    <input type="email" class="form-control mb-3" name="emp_id" placeholder="Your {{$lg::$config['companyName']}} Email" value="{{old('emp_id')}}" required>
+                    <input type="email" class="form-control mb-3" name="emp_id" placeholder="Your {{$lg::$config['companyName']}} Email" value="{{old('emp_id')}}" required autofocus>
                     <input type="password" class="form-control mb-3" name="password" placeholder="Insert PIN" required>
                     <button class="btn btn-lg btn-primary">Login</button>
                 </form>
@@ -58,7 +62,10 @@
             @endif
             @else
             <h2>Game Over!</h2>
-            <p class="text-center">Thank you for participating!</p>
+            @if( App\Filters\Common::hasAnyoneReachedLimit() )
+            <h3 class="text-center">{{App\Filters\Common::getMostAchievedDivision()}} has grabbed the flag</h3>
+            @endif
+            <p class="text-center">Thank you for participating</p>
             <a href="{{route('home')}}" class="btn btn-lg btn-primary">Back to home</a>
             @endif
 
