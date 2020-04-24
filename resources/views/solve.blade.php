@@ -2,7 +2,7 @@
 @section('content')
 @include('lissangaha')
 
-<div class="sash">
+<div class="bottom-panel-container">
     <div class="row">
         <div class="col">
             @if( !App\Filters\Common::hasAnyoneReachedLimit() )
@@ -23,7 +23,7 @@
             <form action="{{route('answer.store')}}" method="POST" id="answerForm">
                 {{csrf_field()}}
                 <section id="quiz" class="text-center">
-                    <h2>Solve this quick</h2>
+                    <h2>Solve this quickly</h2>
                     <p class="quiz">{{$question}}</p>
                     <input type="hidden" class="form-control" name="q" value="{{$q}}">
                     <input type="text" class="form-control" required id="answer" name="answer" {{$lg::isEligible()?'':'disabled'}} placeholder="Your Answer">

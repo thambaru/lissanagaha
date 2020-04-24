@@ -37,7 +37,7 @@ body {
     right: 0;
 }
 
-.sash {
+.bottom-panel-container {
     padding: 40px 25px;
     background-color: rgba(255, 255, 255, 0.808);
     border-top-right-radius: 20px;
@@ -147,7 +147,7 @@ body {
 
 
 @media(min-width:1281px){
-    .sash{
+    .bottom-panel-container{
         width: 40vw;
     }
 }

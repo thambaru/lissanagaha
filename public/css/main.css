@@ -40,7 +40,7 @@ body {
   right: 0;
 }
 
-.sash {
+.bottom-panel-container {
   padding: 40px 25px;
   background-color: rgba(255, 255, 255, 0.808);
   border-top-right-radius: 20px;
@@ -53,24 +53,24 @@ body {
   bottom: 0;
 }
 
-.sash h2 {
+.bottom-panel-container h2 {
   font-weight: 600;
   text-transform: uppercase;
   text-align: center;
   margin: 20px 0;
 }
 
-.sash .form-control {
+.bottom-panel-container .form-control {
   font-size: 20px;
   text-align: center;
 }
 
-.sash p {
+.bottom-panel-container p {
   font-size: 20px;
   font-weight: 300;
 }
 
-.sash .quiz {
+.bottom-panel-container .quiz {
   font-size: 4rem;
 }
 
@@ -154,7 +154,7 @@ body {
 }
 
 @media (min-width: 1281px) {
-  .sash {
+  .bottom-panel-container {
     width: 40vw;
   }
 }

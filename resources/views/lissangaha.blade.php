@@ -10,7 +10,7 @@
         if($climb > 75){
             $climb = 75;
         }elseif($climb == 0){
-            $climb = -15;
+            $climb = -10;
         }
           
 
