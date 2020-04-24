@@ -96,6 +96,7 @@ body {
   -webkit-transform: translate(34px, -15px);
           transform: translate(34px, -15px);
   margin-top: 35px;
+  background-image: url("/img/flag.png");
 }
 
 .lissanagaha .flag::after {

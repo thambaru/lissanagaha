@@ -13,7 +13,9 @@ class LissanagahaController extends Controller
         $teams = Common::$divisions;
         $teamsScore = [];
         foreach ($teams as $key => $value) {
-            array_push($teamsScore, Answer::where('division', $key)->sum('value'));
+            $answerSum = Answer::where('division', $key)->sum('value');
+            $score = $answerSum <= 0 ? 0 :$answerSum;
+            array_push($teamsScore, $score);
         }
         // return $teamsScore;
         $final  = array_combine( $teams, $teamsScore );
